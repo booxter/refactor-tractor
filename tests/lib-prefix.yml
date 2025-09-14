@@ -1,0 +1,38 @@
+id: prefix-lib-maintainers
+valid:
+# Should not match outside meta block
+- |
+  {
+    maintainers = with maintainers; [];
+  }
+# Should not match outside maintainers attribute
+- |
+  {
+    meta = {
+      licenses = with maintainers; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = {
+      maintainers = with lib.maintainers; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = {
+      maintainers = with maintainers; [];
+    };
+  }
+- |
+  {
+    meta.maintainers = with maintainers; [];
+  }
+- |
+  {
+    meta = {
+      maintainers = [ maintainers.nobody ];
+    };
+  }

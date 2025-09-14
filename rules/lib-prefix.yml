@@ -1,0 +1,33 @@
+id: prefix-lib-maintainers
+language: nix
+
+rule:
+  any:
+  - pattern: maintainers
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "maintainers"
+      kind: variable_expression
+      any:
+      - inside:
+          # regular case of meta = { maintainers = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^maintainers$
+          inside:
+            stopBy: end
+            kind: binding
+            has:
+              field: attrpath
+              regex: ^meta$
+      - inside:
+          # special case of shortcut meta.maintainers = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^meta.maintainers$
+
+fix: lib.maintainers

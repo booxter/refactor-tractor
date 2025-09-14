@@ -100,6 +100,21 @@ in
     description = "Check whether all uses of replaceVars and replaceVarsWith build fine with their replacements.";
   };
 
+  scripts.lib-prefix = {
+    exec = ''
+      def main [nixpkgs: string, --write (-w)] {
+          if $write {
+              ast-grep scan --rule rules/lib-prefix.yml $nixpkgs --update-all
+          } else {
+              ast-grep scan --rule rules/lib-prefix.yml $nixpkgs
+          }
+      }
+    '';
+    package = pkgs.nushell;
+    binary = "nu";
+    description = "Prefix references to various lib-things in `meta` with `lib.`.";
+  };
+
   enterShell = ''
     ln -sf ${sgconfig} sgconfig.yml
 
