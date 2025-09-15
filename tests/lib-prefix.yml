@@ -36,3 +36,44 @@ invalid:
       maintainers = [ maintainers.nobody ];
     };
   }
+
+---
+
+id: prefix-lib-licenses
+valid:
+# Should not match outside meta block
+- |
+  {
+    license = with licenses; [];
+  }
+# Should not match outside licenses attribute
+- |
+  {
+    meta = {
+      maintainers = with licenses; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = {
+      license = with lib.licenses; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = {
+      license = with licenses; [];
+    };
+  }
+- |
+  {
+    meta.license = with licenses; [];
+  }
+- |
+  {
+    meta = {
+      license = [ licenses.bsd ];
+    };
+  }

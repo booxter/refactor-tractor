@@ -1,0 +1,107 @@
+id: prefix-lib-licenses
+snapshots:
+  ? |
+    {
+      meta = {
+        license = [ licenses.bsd ];
+      };
+    }
+  : fixed: |
+      {
+        meta = {
+          license = [ lib.licenses.bsd ];
+        };
+      }
+    labels:
+    - source: licenses
+      style: primary
+      start: 29
+      end: 37
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: |-
+        meta = {
+            license = [ licenses.bsd ];
+          };
+      style: secondary
+      start: 4
+      end: 49
+    - source: license
+      style: secondary
+      start: 17
+      end: 24
+    - source: license = [ licenses.bsd ];
+      style: secondary
+      start: 17
+      end: 44
+    - source: licenses
+      style: secondary
+      start: 29
+      end: 37
+  ? |
+    {
+      meta = {
+        license = with licenses; [];
+      };
+    }
+  : fixed: |
+      {
+        meta = {
+          license = with lib.licenses; [];
+        };
+      }
+    labels:
+    - source: licenses
+      style: primary
+      start: 32
+      end: 40
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: |-
+        meta = {
+            license = with licenses; [];
+          };
+      style: secondary
+      start: 4
+      end: 50
+    - source: license
+      style: secondary
+      start: 17
+      end: 24
+    - source: license = with licenses; [];
+      style: secondary
+      start: 17
+      end: 45
+    - source: licenses
+      style: secondary
+      start: 32
+      end: 40
+  ? |
+    {
+      meta.license = with licenses; [];
+    }
+  : fixed: |
+      {
+        meta.license = with lib.licenses; [];
+      }
+    labels:
+    - source: licenses
+      style: primary
+      start: 24
+      end: 32
+    - source: meta.license
+      style: secondary
+      start: 4
+      end: 16
+    - source: meta.license = with licenses; [];
+      style: secondary
+      start: 4
+      end: 37
+    - source: licenses
+      style: secondary
+      start: 24
+      end: 32

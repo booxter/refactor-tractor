@@ -1,0 +1,107 @@
+id: prefix-lib-maintainers
+snapshots:
+  ? |
+    {
+      meta = {
+        maintainers = [ maintainers.nobody ];
+      };
+    }
+  : fixed: |
+      {
+        meta = {
+          maintainers = [ lib.maintainers.nobody ];
+        };
+      }
+    labels:
+    - source: maintainers
+      style: primary
+      start: 33
+      end: 44
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: |-
+        meta = {
+            maintainers = [ maintainers.nobody ];
+          };
+      style: secondary
+      start: 4
+      end: 59
+    - source: maintainers
+      style: secondary
+      start: 17
+      end: 28
+    - source: maintainers = [ maintainers.nobody ];
+      style: secondary
+      start: 17
+      end: 54
+    - source: maintainers
+      style: secondary
+      start: 33
+      end: 44
+  ? |
+    {
+      meta = {
+        maintainers = with maintainers; [];
+      };
+    }
+  : fixed: |
+      {
+        meta = {
+          maintainers = with lib.maintainers; [];
+        };
+      }
+    labels:
+    - source: maintainers
+      style: primary
+      start: 36
+      end: 47
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: |-
+        meta = {
+            maintainers = with maintainers; [];
+          };
+      style: secondary
+      start: 4
+      end: 57
+    - source: maintainers
+      style: secondary
+      start: 17
+      end: 28
+    - source: maintainers = with maintainers; [];
+      style: secondary
+      start: 17
+      end: 52
+    - source: maintainers
+      style: secondary
+      start: 36
+      end: 47
+  ? |
+    {
+      meta.maintainers = with maintainers; [];
+    }
+  : fixed: |
+      {
+        meta.maintainers = with lib.maintainers; [];
+      }
+    labels:
+    - source: maintainers
+      style: primary
+      start: 28
+      end: 39
+    - source: meta.maintainers
+      style: secondary
+      start: 4
+      end: 20
+    - source: meta.maintainers = with maintainers; [];
+      style: secondary
+      start: 4
+      end: 44
+    - source: maintainers
+      style: secondary
+      start: 28
+      end: 39
