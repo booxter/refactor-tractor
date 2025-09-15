@@ -118,3 +118,44 @@ invalid:
       platforms = [ platforms.unix ];
     };
   }
+
+---
+
+id: prefix-lib-sourceTypes
+valid:
+# Should not match outside meta block
+- |
+  {
+    sourceProvenance = with sourceTypes; [];
+  }
+# Should not match outside sourceProvenance attribute
+- |
+  {
+    meta = {
+      maintainers = with sourceTypes; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = {
+      sourceProvenance = with lib.sourceTypes; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = {
+      sourceProvenance = with sourceTypes; [];
+    };
+  }
+- |
+  {
+    meta.sourceProvenance = with sourceTypes; [];
+  }
+- |
+  {
+    meta = {
+      sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    };
+  }

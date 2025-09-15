@@ -103,3 +103,39 @@ rule:
             regex: ^meta.platforms$
 
 fix: lib.platforms
+
+---
+
+id: prefix-lib-sourceTypes
+language: nix
+
+rule:
+  any:
+  - pattern: sourceTypes
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "sourceTypes"
+      kind: variable_expression
+      any:
+      - inside:
+          # regular case of meta = { sourceProvenance = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^sourceProvenance$
+          inside:
+            stopBy: end
+            kind: binding
+            has:
+              field: attrpath
+              regex: ^meta$
+      - inside:
+          # special case of shortcut meta.sourceProvenance = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^meta.sourceProvenance$
+
+fix: lib.sourceTypes
