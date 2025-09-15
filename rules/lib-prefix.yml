@@ -67,3 +67,39 @@ rule:
             regex: ^meta.license$
 
 fix: lib.licenses
+
+---
+
+id: prefix-lib-platforms
+language: nix
+
+rule:
+  any:
+  - pattern: platforms
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "platforms"
+      kind: variable_expression
+      any:
+      - inside:
+          # regular case of meta = { platforms = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^platforms$
+          inside:
+            stopBy: end
+            kind: binding
+            has:
+              field: attrpath
+              regex: ^meta$
+      - inside:
+          # special case of shortcut meta.platforms = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^meta.platforms$
+
+fix: lib.platforms

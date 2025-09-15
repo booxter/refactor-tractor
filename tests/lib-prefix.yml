@@ -77,3 +77,44 @@ invalid:
       license = [ licenses.bsd ];
     };
   }
+
+---
+
+id: prefix-lib-platforms
+valid:
+# Should not match outside meta block
+- |
+  {
+    platforms = with platforms; [];
+  }
+# Should not match outside platforms attribute
+- |
+  {
+    meta = {
+      maintainers = with platforms; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = {
+      platforms = with lib.platforms; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = {
+      platforms = with platforms; [];
+    };
+  }
+- |
+  {
+    meta.platforms = with platforms; [];
+  }
+- |
+  {
+    meta = {
+      platforms = [ platforms.unix ];
+    };
+  }
