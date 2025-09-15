@@ -39,6 +39,47 @@ invalid:
 
 ---
 
+id: prefix-lib-teams
+valid:
+# Should not match outside meta block
+- |
+  {
+    maintainers = with teams; [];
+  }
+# Should not match outside teams attribute
+- |
+  {
+    meta = {
+      licenses = with teams; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = {
+      maintainers = with lib.teams; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = {
+      maintainers = with teams; [];
+    };
+  }
+- |
+  {
+    meta.maintainers = with teams; [];
+  }
+- |
+  {
+    meta = {
+      maintainers = [ teams.lisp ];
+    };
+  }
+
+---
+
 id: prefix-lib-licenses
 valid:
 # Should not match outside meta block

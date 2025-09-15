@@ -1,0 +1,107 @@
+id: prefix-lib-teams
+snapshots:
+  ? |
+    {
+      meta = {
+        maintainers = [ teams.lisp ];
+      };
+    }
+  : fixed: |
+      {
+        meta = {
+          maintainers = [ lib.teams.lisp ];
+        };
+      }
+    labels:
+    - source: teams
+      style: primary
+      start: 33
+      end: 38
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: |-
+        meta = {
+            maintainers = [ teams.lisp ];
+          };
+      style: secondary
+      start: 4
+      end: 51
+    - source: maintainers
+      style: secondary
+      start: 17
+      end: 28
+    - source: maintainers = [ teams.lisp ];
+      style: secondary
+      start: 17
+      end: 46
+    - source: teams
+      style: secondary
+      start: 33
+      end: 38
+  ? |
+    {
+      meta = {
+        maintainers = with teams; [];
+      };
+    }
+  : fixed: |
+      {
+        meta = {
+          maintainers = with lib.teams; [];
+        };
+      }
+    labels:
+    - source: teams
+      style: primary
+      start: 36
+      end: 41
+    - source: meta
+      style: secondary
+      start: 4
+      end: 8
+    - source: |-
+        meta = {
+            maintainers = with teams; [];
+          };
+      style: secondary
+      start: 4
+      end: 51
+    - source: maintainers
+      style: secondary
+      start: 17
+      end: 28
+    - source: maintainers = with teams; [];
+      style: secondary
+      start: 17
+      end: 46
+    - source: teams
+      style: secondary
+      start: 36
+      end: 41
+  ? |
+    {
+      meta.maintainers = with teams; [];
+    }
+  : fixed: |
+      {
+        meta.maintainers = with lib.teams; [];
+      }
+    labels:
+    - source: teams
+      style: primary
+      start: 28
+      end: 33
+    - source: meta.maintainers
+      style: secondary
+      start: 4
+      end: 20
+    - source: meta.maintainers = with teams; [];
+      style: secondary
+      start: 4
+      end: 38
+    - source: teams
+      style: secondary
+      start: 28
+      end: 33
