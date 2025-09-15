@@ -123,6 +123,8 @@ in
     echo "  no-substitute-all <path-to-nixpkgs> --write"
     echo "  lint-replace-vars <path-to-nixpkgs>"
     echo "  build-replace-vars <path-to-nixpkgs>"
+    echo "  lib-prefix <path-to-nixpkgs>"
+    echo "  lib-prefix <path-to-nixpkgs> --write"
   '';
 
   enterTest = ''
