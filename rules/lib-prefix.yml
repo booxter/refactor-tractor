@@ -96,28 +96,27 @@ rule:
     inside:
       # variable_expression is a non-prefixed occurence of "licenses"
       kind: variable_expression
-      any:
-      - inside:
-          # regular case of meta = { license = ...
+      inside:
+        # regular case of meta = { license = ...
+        stopBy: end
+        kind: binding
+        has:
+          field: attrpath
+          regex: ^license$
+        inside:
           stopBy: end
-          kind: binding
+          kind: with_expression
           has:
-            field: attrpath
-            regex: ^license$
+            field: environment
+            has:
+              field: name
+              regex: ^lib$
           inside:
             stopBy: end
-            kind: with_expression
+            kind: binding
             has:
-              field: environment
-              has:
-                field: name
-                regex: ^lib$
-            inside:
-              stopBy: end
-              kind: binding
-              has:
-                field: attrpath
-                regex: ^meta$
+              field: attrpath
+              regex: ^meta$
 
 fix: lib.licenses
 
@@ -133,28 +132,27 @@ rule:
     inside:
       # variable_expression is a non-prefixed occurence of "platforms"
       kind: variable_expression
-      any:
-      - inside:
-          # regular case of meta = { platforms = ...
+      inside:
+        # regular case of meta = { platforms = ...
+        stopBy: end
+        kind: binding
+        has:
+          field: attrpath
+          regex: ^platforms$
+        inside:
           stopBy: end
-          kind: binding
+          kind: with_expression
           has:
-            field: attrpath
-            regex: ^platforms$
+            field: environment
+            has:
+              field: name
+              regex: ^lib$
           inside:
             stopBy: end
-            kind: with_expression
+            kind: binding
             has:
-              field: environment
-              has:
-                field: name
-                regex: ^lib$
-            inside:
-              stopBy: end
-              kind: binding
-              has:
-                field: attrpath
-                regex: ^meta$
+              field: attrpath
+              regex: ^meta$
 
 fix: lib.platforms
 
@@ -170,27 +168,26 @@ rule:
     inside:
       # variable_expression is a non-prefixed occurence of "sourceTypes"
       kind: variable_expression
-      any:
-      - inside:
-          # regular case of meta = { sourceProvenance = ...
+      inside:
+        # regular case of meta = { sourceProvenance = ...
+        stopBy: end
+        kind: binding
+        has:
+          field: attrpath
+          regex: ^sourceProvenance$
+        inside:
           stopBy: end
-          kind: binding
+          kind: with_expression
           has:
-            field: attrpath
-            regex: ^sourceProvenance$
+            field: environment
+            has:
+              field: name
+              regex: ^lib$
           inside:
             stopBy: end
-            kind: with_expression
+            kind: binding
             has:
-              field: environment
-              has:
-                field: name
-                regex: ^lib$
-            inside:
-              stopBy: end
-              kind: binding
-              has:
-                field: attrpath
-                regex: ^meta$
+              field: attrpath
+              regex: ^meta$
 
 fix: lib.sourceTypes
