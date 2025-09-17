@@ -3,36 +3,43 @@ valid:
 # Should not match outside meta block
 - |
   {
-    maintainers = with maintainers; [];
+    maintainers = with lib; with maintainers; [];
   }
 # Should not match outside maintainers attribute
 - |
   {
-    meta = {
+    meta = with lib; {
       licenses = with maintainers; [];
     };
   }
-# Should not match with prefix already present
-- |
-  {
-    meta = {
-      maintainers = with lib.maintainers; [];
-    };
-  }
-invalid:
+# Should not match without `with lib;`
 - |
   {
     meta = {
       maintainers = with maintainers; [];
     };
   }
+# Should not match with prefix already present
 - |
   {
-    meta.maintainers = with maintainers; [];
+    meta = with lib; {
+      maintainers = with lib.maintainers; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      maintainers = with maintainers; [];
+    };
   }
 - |
   {
-    meta = {
+    meta.maintainers = with lib; with maintainers; [];
+  }
+- |
+  {
+    meta = with lib; {
       maintainers = [ maintainers.nobody ];
     };
   }
@@ -44,36 +51,43 @@ valid:
 # Should not match outside meta block
 - |
   {
-    maintainers = with teams; [];
+    maintainers = with lib; with teams; [];
   }
 # Should not match outside teams attribute
 - |
   {
-    meta = {
+    meta = with lib; {
       licenses = with teams; [];
     };
   }
-# Should not match with prefix already present
-- |
-  {
-    meta = {
-      maintainers = with lib.teams; [];
-    };
-  }
-invalid:
+# Should not match without `with lib;`
 - |
   {
     meta = {
       maintainers = with teams; [];
     };
   }
+# Should not match with prefix already present
 - |
   {
-    meta.maintainers = with teams; [];
+    meta = with lib; {
+      maintainers = with lib.teams; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      maintainers = with teams; [];
+    };
   }
 - |
   {
-    meta = {
+    meta.maintainers = with lib; with teams; [];
+  }
+- |
+  {
+    meta = with lib; {
       maintainers = [ teams.lisp ];
     };
   }
@@ -85,32 +99,39 @@ valid:
 # Should not match outside meta block
 - |
   {
-    license = with licenses; [];
+    license = with lib; with licenses; [];
   }
 # Should not match outside licenses attribute
 - |
   {
-    meta = {
+    meta = with lib; {
       maintainers = with licenses; [];
     };
   }
-# Should not match with prefix already present
-- |
-  {
-    meta = {
-      license = with lib.licenses; [];
-    };
-  }
-invalid:
+# Should not match without `with lib;`
 - |
   {
     meta = {
       license = with licenses; [];
     };
   }
+# Should not match with prefix already present
 - |
   {
-    meta = {
+    meta = with lib; {
+      license = with lib.licenses; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      license = with licenses; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
       license = [ licenses.bsd ];
     };
   }
@@ -122,32 +143,39 @@ valid:
 # Should not match outside meta block
 - |
   {
-    platforms = with platforms; [];
+    platforms = with lib; with platforms; [];
   }
 # Should not match outside platforms attribute
 - |
   {
-    meta = {
+    meta = with lib; {
       maintainers = with platforms; [];
     };
   }
-# Should not match with prefix already present
-- |
-  {
-    meta = {
-      platforms = with lib.platforms; [];
-    };
-  }
-invalid:
+# Should not match without `with lib;`
 - |
   {
     meta = {
       platforms = with platforms; [];
     };
   }
+# Should not match with prefix already present
 - |
   {
-    meta = {
+    meta = with lib; {
+      platforms = with lib.platforms; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      platforms = with platforms; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
       platforms = [ platforms.unix ];
     };
   }
@@ -159,32 +187,39 @@ valid:
 # Should not match outside meta block
 - |
   {
-    sourceProvenance = with sourceTypes; [];
+    sourceProvenance = with lib; with sourceTypes; [];
   }
 # Should not match outside sourceProvenance attribute
 - |
   {
-    meta = {
+    meta = with lib; {
       maintainers = with sourceTypes; [];
     };
   }
-# Should not match with prefix already present
-- |
-  {
-    meta = {
-      sourceProvenance = with lib.sourceTypes; [];
-    };
-  }
-invalid:
+# Should not match without `with lib;`
 - |
   {
     meta = {
       sourceProvenance = with sourceTypes; [];
     };
   }
+# Should not match with prefix already present
 - |
   {
-    meta = {
+    meta = with lib; {
+      sourceProvenance = with lib.sourceTypes; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with lib; {
+      sourceProvenance = with sourceTypes; [];
+    };
+  }
+- |
+  {
+    meta = with lib; {
       sourceProvenance = [ sourceTypes.binaryNativeCode ];
     };
   }

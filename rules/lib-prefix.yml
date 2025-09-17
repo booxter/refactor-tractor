@@ -18,10 +18,18 @@ rule:
             regex: ^maintainers$
           inside:
             stopBy: end
-            kind: binding
+            kind: with_expression
             has:
-              field: attrpath
-              regex: ^meta$
+              field: environment
+              has:
+                field: name
+                regex: ^lib$
+            inside:
+              stopBy: end
+              kind: binding
+              has:
+                field: attrpath
+                regex: ^meta$
       - inside:
           # special case of shortcut meta.maintainers = ...
           stopBy: end
@@ -54,10 +62,18 @@ rule:
             regex: ^maintainers$
           inside:
             stopBy: end
-            kind: binding
+            kind: with_expression
             has:
-              field: attrpath
-              regex: ^meta$
+              field: environment
+              has:
+                field: name
+                regex: ^lib$
+            inside:
+              stopBy: end
+              kind: binding
+              has:
+                field: attrpath
+                regex: ^meta$
       - inside:
           # special case of shortcut meta.maintainers = ...
           stopBy: end
@@ -90,10 +106,18 @@ rule:
             regex: ^license$
           inside:
             stopBy: end
-            kind: binding
+            kind: with_expression
             has:
-              field: attrpath
-              regex: ^meta$
+              field: environment
+              has:
+                field: name
+                regex: ^lib$
+            inside:
+              stopBy: end
+              kind: binding
+              has:
+                field: attrpath
+                regex: ^meta$
 
 fix: lib.licenses
 
@@ -119,10 +143,18 @@ rule:
             regex: ^platforms$
           inside:
             stopBy: end
-            kind: binding
+            kind: with_expression
             has:
-              field: attrpath
-              regex: ^meta$
+              field: environment
+              has:
+                field: name
+                regex: ^lib$
+            inside:
+              stopBy: end
+              kind: binding
+              has:
+                field: attrpath
+                regex: ^meta$
 
 fix: lib.platforms
 
@@ -148,9 +180,17 @@ rule:
             regex: ^sourceProvenance$
           inside:
             stopBy: end
-            kind: binding
+            kind: with_expression
             has:
-              field: attrpath
-              regex: ^meta$
+              field: environment
+              has:
+                field: name
+                regex: ^lib$
+            inside:
+              stopBy: end
+              kind: binding
+              has:
+                field: attrpath
+                regex: ^meta$
 
 fix: lib.sourceTypes
