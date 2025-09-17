@@ -63,6 +63,12 @@ in
     ast-grep
     git
     nushell
+    (nixf-diagnose.overrideAttrs (old: {
+      patches = old.patches or [ ] ++ [
+        # Adds --auto-fix option; see: https://github.com/inclyc/nixf-diagnose/pull/9/
+        ./0001-support-auto-fix-trivial-errors.patch
+      ];
+    }))
   ];
 
   languages.nix.enable = true;
@@ -105,6 +111,14 @@ in
       def main [nixpkgs: string, --write (-w)] {
           if $write {
               ast-grep scan --rule rules/lib-prefix.yml $nixpkgs --update-all
+
+              cd $nixpkgs
+
+              # nixf-diagnose --auto-fix returns non-zero exit code if it makes any changes; ignore
+              git diff --name-only | lines | each { |it| try { nixf-diagnose --auto-fix $it } }
+
+              # `with lib;` auto-fix leaves spurious spaces, reformat the tree
+              nix fmt
           } else {
               ast-grep scan --rule rules/lib-prefix.yml $nixpkgs
           }
