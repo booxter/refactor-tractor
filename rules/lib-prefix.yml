@@ -94,13 +94,6 @@ rule:
             has:
               field: attrpath
               regex: ^meta$
-      - inside:
-          # special case of shortcut meta.license = ...
-          stopBy: end
-          kind: binding
-          has:
-            field: attrpath
-            regex: ^meta.license$
 
 fix: lib.licenses
 
@@ -130,13 +123,6 @@ rule:
             has:
               field: attrpath
               regex: ^meta$
-      - inside:
-          # special case of shortcut meta.platforms = ...
-          stopBy: end
-          kind: binding
-          has:
-            field: attrpath
-            regex: ^meta.platforms$
 
 fix: lib.platforms
 
@@ -166,12 +152,5 @@ rule:
             has:
               field: attrpath
               regex: ^meta$
-      - inside:
-          # special case of shortcut meta.sourceProvenance = ...
-          stopBy: end
-          kind: binding
-          has:
-            field: attrpath
-            regex: ^meta.sourceProvenance$
 
 fix: lib.sourceTypes

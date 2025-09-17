@@ -110,10 +110,6 @@ invalid:
   }
 - |
   {
-    meta.license = with licenses; [];
-  }
-- |
-  {
     meta = {
       license = [ licenses.bsd ];
     };
@@ -151,10 +147,6 @@ invalid:
   }
 - |
   {
-    meta.platforms = with platforms; [];
-  }
-- |
-  {
     meta = {
       platforms = [ platforms.unix ];
     };
@@ -189,10 +181,6 @@ invalid:
     meta = {
       sourceProvenance = with sourceTypes; [];
     };
-  }
-- |
-  {
-    meta.sourceProvenance = with sourceTypes; [];
   }
 - |
   {
