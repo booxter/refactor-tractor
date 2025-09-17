@@ -42,6 +42,49 @@ fix: lib.maintainers
 
 ---
 
+# Variation with `meta = with pkgs.lib;` instead of `meta = with lib;`
+id: prefix-pkgs-lib-maintainers
+language: nix
+
+rule:
+  any:
+  - pattern: maintainers
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "maintainers"
+      kind: variable_expression
+      any:
+      - inside:
+          # regular case of meta = { maintainers = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^maintainers$
+          inside:
+            stopBy: end
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^pkgs.lib$
+            inside:
+              stopBy: end
+              kind: binding
+              has:
+                field: attrpath
+                regex: ^meta$
+      - inside:
+          # special case of shortcut meta.maintainers = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^meta.maintainers$
+
+fix: pkgs.lib.maintainers
+
+---
+
 id: prefix-lib-teams
 language: nix
 
@@ -86,6 +129,49 @@ fix: lib.teams
 
 ---
 
+# Variation with `meta = with pkgs.lib;` instead of `meta = with lib;`
+id: prefix-pkgs-lib-teams
+language: nix
+
+rule:
+  any:
+  - pattern: teams
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "teams"
+      kind: variable_expression
+      any:
+      - inside:
+          # regular case of meta = { maintainers = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^maintainers$
+          inside:
+            stopBy: end
+            kind: with_expression
+            has:
+              field: environment
+              regex: ^pkgs.lib$
+            inside:
+              stopBy: end
+              kind: binding
+              has:
+                field: attrpath
+                regex: ^meta$
+      - inside:
+          # special case of shortcut meta.maintainers = ...
+          stopBy: end
+          kind: binding
+          has:
+            field: attrpath
+            regex: ^meta.maintainers$
+
+fix: pkgs.lib.teams
+
+---
+
 id: prefix-lib-licenses
 language: nix
 
@@ -119,6 +205,41 @@ rule:
               regex: ^meta$
 
 fix: lib.licenses
+
+---
+
+# Variation with `meta = with pkgs.lib;` instead of `meta = with lib;`
+id: prefix-pkgs-lib-licenses
+language: nix
+
+rule:
+  any:
+  - pattern: licenses
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "licenses"
+      kind: variable_expression
+      inside:
+        # regular case of meta = { license = ...
+        stopBy: end
+        kind: binding
+        has:
+          field: attrpath
+          regex: ^license$
+        inside:
+          stopBy: end
+          kind: with_expression
+          has:
+            field: environment
+            regex: ^pkgs.lib$
+          inside:
+            stopBy: end
+            kind: binding
+            has:
+              field: attrpath
+              regex: ^meta$
+
+fix: pkgs.lib.licenses
 
 ---
 
@@ -158,6 +279,41 @@ fix: lib.platforms
 
 ---
 
+# Variation with `meta = with pkgs.lib;` instead of `meta = with lib;`
+id: prefix-pkgs-lib-platforms
+language: nix
+
+rule:
+  any:
+  - pattern: platforms
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "platforms"
+      kind: variable_expression
+      inside:
+        # regular case of meta = { platforms = ...
+        stopBy: end
+        kind: binding
+        has:
+          field: attrpath
+          regex: ^platforms$
+        inside:
+          stopBy: end
+          kind: with_expression
+          has:
+            field: environment
+            regex: ^pkgs.lib$
+          inside:
+            stopBy: end
+            kind: binding
+            has:
+              field: attrpath
+              regex: ^meta$
+
+fix: pkgs.lib.platforms
+
+---
+
 id: prefix-lib-sourceTypes
 language: nix
 
@@ -191,3 +347,38 @@ rule:
               regex: ^meta$
 
 fix: lib.sourceTypes
+
+---
+
+# Variation with `meta = with pkgs.lib;` instead of `meta = with lib;`
+id: prefix-pkgs-lib-sourceTypes
+language: nix
+
+rule:
+  any:
+  - pattern: sourceTypes
+    kind: identifier
+    inside:
+      # variable_expression is a non-prefixed occurence of "sourceTypes"
+      kind: variable_expression
+      inside:
+        # regular case of meta = { sourceProvenance = ...
+        stopBy: end
+        kind: binding
+        has:
+          field: attrpath
+          regex: ^sourceProvenance$
+        inside:
+          stopBy: end
+          kind: with_expression
+          has:
+            field: environment
+            regex: ^pkgs.lib$
+          inside:
+            stopBy: end
+            kind: binding
+            has:
+              field: attrpath
+              regex: ^meta$
+
+fix: pkgs.lib.sourceTypes

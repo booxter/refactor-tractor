@@ -46,6 +46,54 @@ invalid:
 
 ---
 
+id: prefix-pkgs-lib-maintainers
+valid:
+# Should not match outside meta block
+- |
+  {
+    maintainers = with pkgs.lib; with maintainers; [];
+  }
+# Should not match outside maintainers attribute
+- |
+  {
+    meta = with pkgs.lib; {
+      licenses = with maintainers; [];
+    };
+  }
+# Should not match without `with pkgs.lib;`
+- |
+  {
+    meta = {
+      maintainers = with maintainers; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = with pkgs.lib.maintainers; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = with maintainers; [];
+    };
+  }
+- |
+  {
+    meta.maintainers = with pkgs.lib; with maintainers; [];
+  }
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = [ maintainers.nobody ];
+    };
+  }
+
+---
+
 id: prefix-lib-teams
 valid:
 # Should not match outside meta block
@@ -60,7 +108,7 @@ valid:
       licenses = with teams; [];
     };
   }
-# Should not match without `with lib;`
+# Should not match without `with pkgs.lib;`
 - |
   {
     meta = {
@@ -88,6 +136,54 @@ invalid:
 - |
   {
     meta = with lib; {
+      maintainers = [ teams.lisp ];
+    };
+  }
+
+---
+
+id: prefix-pkgs-lib-teams
+valid:
+# Should not match outside meta block
+- |
+  {
+    maintainers = with pkgs.lib; with teams; [];
+  }
+# Should not match outside teams attribute
+- |
+  {
+    meta = with pkgs.lib; {
+      licenses = with teams; [];
+    };
+  }
+# Should not match without `with pkgs.lib;`
+- |
+  {
+    meta = {
+      maintainers = with teams; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = with pkgs.lib.teams; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = with teams; [];
+    };
+  }
+- |
+  {
+    meta.maintainers = with pkgs.lib; with teams; [];
+  }
+- |
+  {
+    meta = with pkgs.lib; {
       maintainers = [ teams.lisp ];
     };
   }
@@ -138,6 +234,50 @@ invalid:
 
 ---
 
+id: prefix-pkgs-lib-licenses
+valid:
+# Should not match outside meta block
+- |
+  {
+    license = with pkgs.lib; with licenses; [];
+  }
+# Should not match outside licenses attribute
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = with licenses; [];
+    };
+  }
+# Should not match without `with pkgs.lib;`
+- |
+  {
+    meta = {
+      license = with licenses; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with pkgs.lib; {
+      license = with pkgs.lib.licenses; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with pkgs.lib; {
+      license = with licenses; [];
+    };
+  }
+- |
+  {
+    meta = with pkgs.lib; {
+      license = [ licenses.bsd ];
+    };
+  }
+
+---
+
 id: prefix-lib-platforms
 valid:
 # Should not match outside meta block
@@ -182,6 +322,50 @@ invalid:
 
 ---
 
+id: prefix-pkgs-lib-platforms
+valid:
+# Should not match outside meta block
+- |
+  {
+    platforms = with pkgs.lib; with platforms; [];
+  }
+# Should not match outside platforms attribute
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = with platforms; [];
+    };
+  }
+# Should not match without `with pkgs.lib;`
+- |
+  {
+    meta = {
+      platforms = with platforms; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with pkgs.lib; {
+      platforms = with lib.platforms; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with pkgs.lib; {
+      platforms = with platforms; [];
+    };
+  }
+- |
+  {
+    meta = with pkgs.lib; {
+      platforms = [ platforms.unix ];
+    };
+  }
+
+---
+
 id: prefix-lib-sourceTypes
 valid:
 # Should not match outside meta block
@@ -220,6 +404,50 @@ invalid:
 - |
   {
     meta = with lib; {
+      sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    };
+  }
+
+---
+
+id: prefix-pkgs-lib-sourceTypes
+valid:
+# Should not match outside meta block
+- |
+  {
+    sourceProvenance = with pkgs.lib; with sourceTypes; [];
+  }
+# Should not match outside sourceProvenance attribute
+- |
+  {
+    meta = with pkgs.lib; {
+      maintainers = with sourceTypes; [];
+    };
+  }
+# Should not match without `with pkgs.lib;`
+- |
+  {
+    meta = {
+      sourceProvenance = with sourceTypes; [];
+    };
+  }
+# Should not match with prefix already present
+- |
+  {
+    meta = with pkgs.lib; {
+      sourceProvenance = with lib.sourceTypes; [];
+    };
+  }
+invalid:
+- |
+  {
+    meta = with pkgs.lib; {
+      sourceProvenance = with sourceTypes; [];
+    };
+  }
+- |
+  {
+    meta = with pkgs.lib; {
       sourceProvenance = [ sourceTypes.binaryNativeCode ];
     };
   }
