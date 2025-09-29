@@ -58,12 +58,40 @@ in
     ast-grep
     git
     nushell
-    (nixf-diagnose.overrideAttrs (old: {
-      patches = old.patches or [ ] ++ [
-        # Adds --auto-fix option; see: https://github.com/inclyc/nixf-diagnose/pull/9/
-        ./0001-support-auto-fix-trivial-errors.patch
-      ];
-    }))
+    (
+      (nixf-diagnose.override {
+        nixf = nixf.overrideAttrs (old: {
+          src = pkgs.fetchFromGitHub {
+            owner = "booxter";
+            repo = "nixd";
+            rev = "2980b531ca4c87dc55f7bb9c9a6f606daaad1e3f";
+            hash = "sha256-dwX460T653ECQUWVcOnhf56c+/OzaYvSk/4ktQu0S4Y=";
+          };
+
+          buildInputs =
+            old.buildInputs
+            ++ [ llvmPackages.llvm ]
+            ++ (
+              let
+                nixComponents = nixVersions.nixComponents_2_30;
+              in
+              [
+                nixComponents.nix-cmd
+                nixComponents.nix-expr
+                nixComponents.nix-main
+              ]
+            );
+          nativeBuildInputs = old.nativeBuildInputs ++ [ cmake ];
+          doCheck = false; # relies on nixpkgs NIX_PATH
+        });
+      }).overrideAttrs
+      (old: {
+        patches = old.patches or [ ] ++ [
+          # Adds --auto-fix option; see: https://github.com/inclyc/nixf-diagnose/pull/9/
+          ./0001-support-auto-fix-trivial-errors.patch
+        ];
+      })
+    )
   ];
 
   languages.nix.enable = true;
@@ -111,7 +139,7 @@ in
 
               # nixf-diagnose --auto-fix returns non-zero exit code if it makes any changes; ignore
               # TODO: run only the necessary fix for redundant `with lib;` statements; ignore the rest
-              git diff --name-only | lines | each { |it| try { nixf-diagnose --auto-fix $it } }
+              git diff --name-only | lines | par-each -t 64 { |it| try { ^nixf-diagnose --auto-fix $it } }
 
               # `with lib;` auto-fix leaves spurious spaces, reformat the tree
               nix fmt
